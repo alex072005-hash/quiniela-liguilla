@@ -5,7 +5,7 @@
 //  Esta llave es pública a propósito: los datos los protege la base de datos.
 // =====================================================================
 window.QUINIELA_CONFIG = {
-  SUPABASE_URL: 'PEGA_AQUI_TU_PROJECT_URL',      // ej. https://abcdefghijklmnop.supabase.co
-  SUPABASE_KEY: 'PEGA_AQUI_TU_PUBLISHABLE_KEY',  // ej. sb_publishable_xxxxxxxxxxxx
+  SUPABASE_URL: 'https://xrgelcyguvnieymojtnm.supabase.co',
+  SUPABASE_KEY: 'sb_publishable_9m5YK9ms8QQ_dC_Tm1XTjQ_CPEbuDaz',
   ZONA: 'America/Monterrey'
 };
