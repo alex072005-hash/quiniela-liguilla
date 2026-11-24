@@ -123,11 +123,27 @@
   }
 
   // ---------- Piezas ----------
+  // Equipos con escudo en img/escudos/<ID>.webp (los demás muestran un círculo con sus siglas)
+  var ESCUDOS = { AME: 1, ATL: 1, CAZ: 1, CHI: 1, LEO: 1, MTY: 1, PAC: 1, TOL: 1 };
+  var VERSION_ESCUDOS = 1;
+
   function escudo(eq, tam) {
     if (!eq) return '<span class="escudo ' + (tam || '') + '">?</span>';
-    return '<span class="escudo ' + (tam || '') + '" style="--c:' + esc(eq.color) + ';--t:' + esc(eq.texto) +
-      '" title="' + esc(eq.nombre) + '" aria-hidden="true">' + esc(eq.id) + '</span>';
+    var conImagen = ESCUDOS[eq.id] === 1;
+    var html = '<span class="escudo ' + (tam || '') + (conImagen ? ' img' : '') + '" data-id="' + esc(eq.id) +
+      '" style="--c:' + esc(eq.color) + ';--t:' + esc(eq.texto) + '" title="' + esc(eq.nombre) + '" aria-hidden="true">';
+    if (conImagen) return html + '<img src="img/escudos/' + eq.id + '.webp?v=' + VERSION_ESCUDOS + '" alt="" decoding="async"></span>';
+    return html + esc(eq.id) + '</span>';
   }
+
+  // Si un escudo no carga, se cambia por el círculo con siglas
+  document.addEventListener('error', function (ev) {
+    var t = ev.target;
+    if (!t || t.tagName !== 'IMG' || !t.parentNode || !t.parentNode.classList || !t.parentNode.classList.contains('img')) return;
+    var span = t.parentNode;
+    span.classList.remove('img');
+    span.textContent = span.getAttribute('data-id') || '?';
+  }, true);
 
   var PALETA = ['#2bd96b', '#5aa9ff', '#f6c544', '#ff8a5b', '#c58cff', '#3fd1c7', '#ff6b9a', '#a3d65c'];
   function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }

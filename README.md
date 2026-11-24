@@ -97,6 +97,8 @@ Cada cambio que se sube a `main` se publica solo en 1–2 minutos. Los celulares
 
 **El siguiente torneo (Clausura 2027).** Admin › Grupo › *Nuevo torneo*. El anterior queda en el Historial.
 
+**Escudos de los equipos.** Están en `img/escudos/` como `CLAVE.webp` (ej. `CAZ.webp`). Para agregar uno, guarda el archivo con la clave del equipo y añade esa clave a la lista `ESCUDOS` en `js/ui.js`. Los equipos sin escudo se ven como un círculo con sus siglas.
+
 **Cambié archivos de la página y los celulares no ven el cambio.** En `index.html` cambia todos los `?v=1` por `?v=2` y vuelve a subirlo.
 
 ## Cómo está protegida

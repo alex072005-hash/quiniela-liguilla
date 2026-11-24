@@ -34,16 +34,16 @@ begin
   select gen_random_uuid() as id, v.*
     from (values
       ( 1, 'cuartos', 'ida',    'PAC', 'TOL', base - interval '9 days',                      1, 2),
-      ( 2, 'cuartos', 'ida',    'PUM', 'AME', base - interval '9 days' + interval '2 hours', 0, 0),
+      ( 2, 'cuartos', 'ida',    'ATL', 'AME', base - interval '9 days' + interval '2 hours', 0, 0),
       ( 3, 'cuartos', 'ida',    'MTY', 'CAZ', base - interval '8 days',                      2, 1),
-      ( 4, 'cuartos', 'ida',    'CHI', 'TIG', base - interval '8 days' + interval '2 hours', 1, 1),
+      ( 4, 'cuartos', 'ida',    'CHI', 'LEO', base - interval '8 days' + interval '2 hours', 1, 1),
       ( 5, 'cuartos', 'vuelta', 'TOL', 'PAC', base - interval '6 days',                      2, 0),
-      ( 6, 'cuartos', 'vuelta', 'AME', 'PUM', base - interval '6 days' + interval '2 hours', 3, 1),
+      ( 6, 'cuartos', 'vuelta', 'AME', 'ATL', base - interval '6 days' + interval '2 hours', 3, 1),
       ( 7, 'cuartos', 'vuelta', 'CAZ', 'MTY', base - interval '5 days',                      2, 0),
-      ( 8, 'cuartos', 'vuelta', 'TIG', 'CHI', base - interval '5 days' + interval '2 hours', 2, 1),
-      ( 9, 'semis',   'ida',    'TIG', 'TOL', base - interval '1 day',                       1, 1),
+      ( 8, 'cuartos', 'vuelta', 'LEO', 'CHI', base - interval '5 days' + interval '2 hours', 2, 1),
+      ( 9, 'semis',   'ida',    'LEO', 'TOL', base - interval '1 day',                       1, 1),
       (10, 'semis',   'ida',    'CAZ', 'AME', now() - interval '90 minutes',                 null, null),
-      (11, 'semis',   'vuelta', 'TOL', 'TIG', base + interval '2 days',                      null, null),
+      (11, 'semis',   'vuelta', 'TOL', 'LEO', base + interval '2 days',                      null, null),
       (12, 'semis',   'vuelta', 'AME', 'CAZ', base + interval '2 days' + interval '2 hours', null, null)
     ) as v(n, fase, iv, loc, vis, ini, gl, gv);
 
