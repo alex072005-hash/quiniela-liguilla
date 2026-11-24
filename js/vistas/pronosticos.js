@@ -123,8 +123,8 @@
       }
       cont.innerHTML = '<div class="cabeza-vista"><h1 class="h1">Mis pronósticos</h1>' +
         '<p class="sub">Marcador a 90 minutos · exacto = 4 pts · solo resultado = 3 pts</p></div>' +
-        '<div class="seg" role="tablist" id="tabsFase"></div>' + cuerpo +
-        '<div class="barra-guardar" id="barraGuardar"></div>';
+        '<div class="seg" role="tablist" id="tabsFase"></div>' +
+        '<div class="barra-guardar" id="barraGuardar"></div>' + cuerpo;
       pintarTabs();
       pintarBarra();
     }

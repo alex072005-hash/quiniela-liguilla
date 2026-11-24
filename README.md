@@ -89,7 +89,9 @@ Cada cambio que se sube a `main` se publica solo en 1–2 minutos. Los celulares
 
 **¿Hay que entrar cada vez?** No. La sesión se queda guardada en ese celular y navegador. Si cambia de celular (o de navegador), entra con su número y NIP.
 
-**Ponerla como app en el celular.** iPhone: en Safari › Compartir › *Agregar a pantalla de inicio*. Android: en Chrome › ⋮ › *Agregar a la pantalla principal*. En iPhone, la primera vez que la abras desde el ícono hay que entrar con número y NIP.
+**Ponerla como app en el celular.** iPhone: en Safari › Compartir › *Agregar a pantalla de inicio*. Android: en Chrome › ⋮ › *Agregar a la pantalla principal*. Queda con su ícono y sin anuncios. En iPhone, la primera vez que la abras desde el ícono hay que entrar con número y NIP.
+
+**Me sale un anuncio abajo.** Lo pone la app o el servicio con el que la abres, no la quiniela. El menú está arriba (☰) para que el anuncio no tape nada. Para quitarlo del todo, ábrela directo en Chrome o Safari y agrégala a la pantalla de inicio.
 
 **Me equivoqué en un resultado.** Admin › Resultados › *Corregir*. Los puntos se recalculan solos. Si la bolsa de ese partido ya estaba cerrada, primero reábrela en Admin › Bolsas.
 

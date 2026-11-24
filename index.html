@@ -17,13 +17,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
-  <link rel="stylesheet" href="css/estilos.css?v=2">
+  <link rel="stylesheet" href="css/estilos.css?v=3">
 </head>
 <body class="sin-sesion">
   <header class="top">
     <div class="top-inner">
+      <button class="top-menu" type="button" id="btnMenu" aria-label="Abrir menú" aria-expanded="false" aria-controls="cajon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16"/></svg>
+      </button>
       <a class="top-marca" href="#/inicio" aria-label="Ir al inicio">
-        <svg class="top-logo" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#0f2a1b"/><rect x="8" y="8" width="48" height="48" rx="10" fill="none" stroke="#2bd96b" stroke-width="3.5"/><path d="M32 8v48" stroke="#2bd96b" stroke-width="3.5"/><circle cx="32" cy="32" r="10" fill="none" stroke="#2bd96b" stroke-width="3.5"/><circle cx="32" cy="32" r="3" fill="#f6c544"/></svg>
         <div style="min-width:0">
           <div class="top-titulo">Quiniela <span>Liguilla</span></div>
           <div class="top-sub" id="topSub"></div>
@@ -33,23 +35,37 @@
     </div>
   </header>
 
-  <main id="vista" class="vista" tabindex="-1"></main>
+  <!-- Menú lateral (se abre con las tres rayitas) -->
+  <div class="cajon-fondo" id="cajonFondo"></div>
+  <nav class="cajon" id="cajon" aria-label="Secciones">
+    <div class="cajon-cab">
+      <svg class="cajon-logo" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#0f2a1b"/><rect x="8" y="8" width="48" height="48" rx="10" fill="none" stroke="#2bd96b" stroke-width="3.5"/><path d="M32 8v48" stroke="#2bd96b" stroke-width="3.5"/><circle cx="32" cy="32" r="10" fill="none" stroke="#2bd96b" stroke-width="3.5"/><circle cx="32" cy="32" r="3" fill="#f6c544"/></svg>
+      <div style="min-width:0">
+        <div class="top-titulo">Quiniela <span>Liguilla</span></div>
+        <div class="top-sub" id="cajonSub"></div>
+      </div>
+      <button class="cajon-cerrar" type="button" id="btnCerrarMenu" aria-label="Cerrar menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="cajon-lista" id="cajonLista"></div>
+  </nav>
 
-  <nav class="nav" id="nav" aria-label="Secciones"></nav>
+  <main id="vista" class="vista" tabindex="-1"></main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/config.js?v=2"></script>
-  <script src="js/api.js?v=2"></script>
-  <script src="js/ui.js?v=2"></script>
-  <script src="js/vistas/entrar.js?v=2"></script>
-  <script src="js/vistas/inicio.js?v=2"></script>
-  <script src="js/vistas/pronosticos.js?v=2"></script>
-  <script src="js/vistas/partido.js?v=2"></script>
-  <script src="js/vistas/bolsas.js?v=2"></script>
-  <script src="js/vistas/historial.js?v=2"></script>
-  <script src="js/vistas/mas.js?v=2"></script>
-  <script src="js/vistas/admin.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/config.js?v=3"></script>
+  <script src="js/api.js?v=3"></script>
+  <script src="js/ui.js?v=3"></script>
+  <script src="js/vistas/entrar.js?v=3"></script>
+  <script src="js/vistas/inicio.js?v=3"></script>
+  <script src="js/vistas/pronosticos.js?v=3"></script>
+  <script src="js/vistas/partido.js?v=3"></script>
+  <script src="js/vistas/bolsas.js?v=3"></script>
+  <script src="js/vistas/historial.js?v=3"></script>
+  <script src="js/vistas/mas.js?v=3"></script>
+  <script src="js/vistas/admin.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>

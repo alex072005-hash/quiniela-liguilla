@@ -15,14 +15,20 @@
     alTick: null       // función que corre cada 30 s en la vista actual
   };
 
-  var NAV = [
+  // Menú lateral (tres rayitas arriba a la izquierda)
+  var MENU = [
     { ruta: 'inicio', txt: 'Inicio', ico: 'casa' },
-    { ruta: 'pronosticos', txt: 'Pronósticos', ico: 'balon' },
+    { ruta: 'pronosticos', txt: 'Mis pronósticos', ico: 'balon' },
     { ruta: 'bolsas', txt: 'Bolsas', ico: 'trofeo' },
-    { ruta: 'general', txt: 'General', ico: 'podio' },
-    { ruta: 'mas', txt: 'Más', ico: 'puntos' }
+    { ruta: 'general', txt: 'Tabla general', ico: 'podio' },
+    { ruta: 'historial', txt: 'Historial', ico: 'historial' },
+    { sep: true },
+    { ruta: 'perfil', txt: 'Mi perfil', ico: 'usuario' },
+    { ruta: 'mas', txt: 'Cómo se juega', ico: 'estrella' },
+    { ruta: 'admin', txt: 'Admin', ico: 'ajustes', admin: true },
+    { href: '#/admin/grupo', txt: 'Invitar a la familia', ico: 'whatsapp', admin: true }
   ];
-  var PESTANA_DE = { partido: 'pronosticos', historial: 'mas', perfil: 'mas', admin: 'mas' };
+  var ACTIVO_DE = { partido: 'pronosticos' };
 
   App.vigente = function (n) { return n === App.n; };
   App.equipo = function (id) {
@@ -51,18 +57,42 @@
 
   function vista() { return document.getElementById('vista'); }
 
-  function pintarNav(actual) {
-    var tab = PESTANA_DE[actual] || actual;
-    document.getElementById('nav').innerHTML = NAV.map(function (it) {
-      var act = it.ruta === tab;
-      return '<a href="#/' + it.ruta + '"' + (act ? ' class="activo" aria-current="page"' : '') + '>' +
-        UI.icono(it.ico) + '<span>' + it.txt + '</span></a>';
+  function pintarMenu(actual) {
+    var act = ACTIVO_DE[actual] || actual;
+    var esAdmin = App.yo && App.yo.es_admin;
+    var html = MENU.filter(function (it) { return !it.admin || esAdmin; }).map(function (it) {
+      if (it.sep) return '<div class="cajon-sep" role="separator"></div>';
+      var activo = !it.href && it.ruta === act;
+      return '<a class="cajon-link' + (activo ? ' activo' : '') + '" href="' + (it.href || '#/' + it.ruta) + '"' +
+        (activo ? ' aria-current="page"' : '') + '>' + UI.icono(it.ico) + '<span>' + it.txt + '</span></a>';
     }).join('');
+    html += '<div class="cajon-sep" role="separator"></div>' +
+      '<button type="button" class="cajon-link cajon-salir" id="cajonSalir">' + UI.icono('salir') + '<span>Cerrar sesión</span></button>';
+    document.getElementById('cajonLista').innerHTML = html;
+  }
+
+  function menuAbierto() { return document.getElementById('cajon').classList.contains('abierto'); }
+  function abrirMenu() {
+    document.getElementById('cajon').classList.add('abierto');
+    document.getElementById('cajonFondo').classList.add('ver');
+    document.getElementById('btnMenu').setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-abierto');
+    var primero = document.querySelector('#cajonLista .cajon-link');
+    if (primero) primero.focus({ preventScroll: true });
+  }
+  function cerrarMenu(devolverFoco) {
+    if (!menuAbierto()) return;
+    document.getElementById('cajon').classList.remove('abierto');
+    document.getElementById('cajonFondo').classList.remove('ver');
+    document.getElementById('btnMenu').setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-abierto');
+    if (devolverFoco) document.getElementById('btnMenu').focus({ preventScroll: true });
   }
 
   function pintarTop() {
     var t = App.torneo;
     document.getElementById('topSub').textContent = t ? t.nombre : 'Sin torneo activo';
+    document.getElementById('cajonSub').textContent = App.yo ? 'Hola, ' + App.yo.apodo : '';
     document.getElementById('topYo').innerHTML = App.yo ? UI.avatar(App.yo.apodo) : '';
   }
 
@@ -80,6 +110,7 @@
     var cont = vista();
     App.alTick = null;
     App.salirGuard = null;
+    cerrarMenu(false);
     cont.onclick = cont.onsubmit = cont.onchange = cont.oninput = null;
 
     if (!App.yo) {
@@ -94,7 +125,8 @@
     var fn = Vistas[r.nombre];
     if (!fn || r.nombre === 'entrar' || (r.nombre === 'admin' && !App.yo.es_admin)) { location.replace('#/inicio'); return; }
 
-    pintarNav(r.nombre);
+    pintarMenu(r.nombre);
+    pintarTop();
     cont.innerHTML = UI.cargando();
     window.scrollTo(0, 0);
     try { await fn(cont, r.params, n); }
@@ -168,6 +200,23 @@
     if (App.yo && ocultoDesde && Date.now() - ocultoDesde > 60000 && !(App.salirGuard && App.salirGuard())) {
       App.cargarBase().then(App.render).catch(function () { /* sin red: se queda como está */ });
     }
+  });
+
+  // Menú lateral: abrir, cerrar (fondo, X o tecla Esc) y cerrar sesión
+  document.getElementById('btnMenu').addEventListener('click', function () {
+    if (menuAbierto()) cerrarMenu(true); else abrirMenu();
+  });
+  document.getElementById('cajonFondo').addEventListener('click', function () { cerrarMenu(true); });
+  document.getElementById('btnCerrarMenu').addEventListener('click', function () { cerrarMenu(true); });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && menuAbierto()) cerrarMenu(true); });
+  document.getElementById('cajonLista').addEventListener('click', function (ev) {
+    if (ev.target.closest('#cajonSalir')) {
+      cerrarMenu(false);
+      if (window.confirm('¿Cerrar sesión en este celular? Para volver a entrar necesitas tu número y tu NIP.')) App.cerrarSesion();
+      return;
+    }
+    var link = ev.target.closest('a');
+    if (link && link.getAttribute('href') === location.hash) cerrarMenu(false);
   });
 
   // Cuentas regresivas

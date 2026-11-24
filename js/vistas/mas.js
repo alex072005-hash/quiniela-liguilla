@@ -3,21 +3,10 @@
   'use strict';
   window.Vistas = window.Vistas || {};
 
-  function item(href, ico, titulo, sub, extra) {
-    return '<a class="menu-item' + (extra || '') + '" href="' + href + '">' + UI.icono(ico) +
-      '<span class="menu-txt">' + titulo + (sub ? '<small>' + sub + '</small>' : '') + '</span><span class="flecha" aria-hidden="true">›</span></a>';
-  }
-
   Vistas.mas = async function (cont) {
-    cont.innerHTML = '<div class="cabeza-vista"><h1 class="h1">Más</h1></div>' +
-      '<nav class="card menu">' +
-        item('#/historial', 'historial', 'Historial', 'Resultado final de cada fase') +
-        item('#/perfil', 'usuario', 'Mi perfil', 'Cambiar mi nombre o mi NIP') +
-        (App.yo.es_admin ? item('#/admin', 'ajustes', 'Admin', 'Partidos, resultados, pagos e invitaciones') : '') +
-        (App.yo.es_admin ? item('#/admin/grupo', 'whatsapp', 'Invitar a la familia', 'Link para mandar por WhatsApp') : '') +
-      '</nav>' +
-      '<h2 class="h2">Cómo se juega</h2>' +
-      '<section class="card"><ul class="pasos">' +
+    cont.innerHTML = '<div class="cabeza-vista"><h1 class="h1">Cómo se juega</h1>' +
+      '<p class="sub">Para moverte por la app usa el menú ☰ de arriba a la izquierda.</p></div>' +
+      '<section class="card mt"><ul class="pasos">' +
         '<li>Pronostica el <b>marcador a 90 minutos</b> de cada partido.</li>' +
         '<li>Puedes cambiarlo hasta que empiece el partido; luego se cierra con candado.</li>' +
         '<li><b>4 puntos</b> si atinas el marcador exacto; <b>3 puntos</b> si solo atinas quién gana (o el empate).</li>' +
@@ -25,17 +14,12 @@
         '<li>Si hay empate en puntos, la bolsa se reparte en partes iguales.</li>' +
         '<li>Todos ven lo que puso cada quien en cuanto empieza el partido.</li>' +
       '</ul></section>' +
-      '<details class="card mt"><summary>Ponerla en la pantalla de tu celular</summary>' +
+      '<details class="card mt"><summary>Ponerla en la pantalla de tu celular (sin anuncios)</summary>' +
         '<ul class="pasos">' +
           '<li><b>iPhone:</b> abre el link en Safari › botón Compartir (cuadro con flecha) › “Agregar a pantalla de inicio”.</li>' +
           '<li><b>Android:</b> abre el link en Chrome › menú ⋮ › “Agregar a la pantalla principal” o “Instalar app”.</li>' +
-          '<li>La primera vez que la abras desde el ícono, entra con tu número y NIP. Después ya se queda guardada.</li>' +
-        '</ul></details>' +
-      '<nav class="card menu mt"><button type="button" class="menu-item peligro" id="btnSalir">' + UI.icono('salir') +
-        '<span class="menu-txt">Cerrar sesión<small>Solo en este celular</small></span></button></nav>';
-    document.getElementById('btnSalir').onclick = function () {
-      if (window.confirm('¿Cerrar sesión en este celular? Para volver a entrar necesitas tu número y tu NIP.')) App.cerrarSesion();
-    };
+          '<li>Queda con su ícono como cualquier app y sin anuncios. La primera vez que la abras desde el ícono, entra con tu número y NIP; después ya se queda guardada.</li>' +
+        '</ul></details>';
   };
 
   Vistas.perfil = async function (cont) {
